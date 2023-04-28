@@ -41,7 +41,7 @@ class AppHome extends StatelessWidget {
           const SizedBox(height: 10),
           Container(
             width: double.infinity,
-            height: 320,
+            height: 310,
             // color: Colors.red,
             padding: const EdgeInsets.all(20),
             child: Form(
@@ -60,9 +60,9 @@ class AppHome extends StatelessWidget {
                       textInputAction: TextInputAction.next,
                       autofocus: true,
                       decoration: const InputDecoration(
-                          hintText: 'Distanta',
-                          border: InputBorder.none,
-                          hintStyle: TextStyle()),
+                        hintText: 'Distanta',
+                        border: InputBorder.none,
+                      ),
                       onSaved: (distanta) {
                         if (distanta != null) {
                           _values['distanta'] = distanta;
