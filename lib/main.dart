@@ -14,7 +14,11 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
           textTheme:
-              const TextTheme(bodyMedium: TextStyle(color: Colors.white))),
+              const TextTheme(bodyMedium: TextStyle(color: Colors.white)),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.purple,
+            secondary: Colors.white,
+          )),
       home: AppHome(),
     );
   }
