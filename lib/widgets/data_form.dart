@@ -5,15 +5,12 @@ import 'package:provider/provider.dart';
 class DataForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
-  int? temp;
-
   void _saveForm() {
     final isValid = _formKey.currentState?.validate();
     if (isValid == null || isValid == false) {
       return;
     }
     _formKey.currentState!.save();
-    print(temp);
   }
 
   void _showSnackbar(BuildContext context) {
@@ -46,9 +43,8 @@ class DataForm extends StatelessWidget {
                   border: InputBorder.none,
                 ),
                 onSaved: (distanta) {
-                  if (distanta != null) {
+                  if (distanta != null && distanta != '') {
                     dataValues.setDistanta(int.parse(distanta));
-                    temp = dataValues.distanta;
                   }
                 },
                 validator: (value) {
@@ -74,7 +70,7 @@ class DataForm extends StatelessWidget {
                     border: InputBorder.none,
                     hintStyle: TextStyle()),
                 onSaved: (consum) {
-                  if (consum != null) {
+                  if (consum != null && consum != '') {
                     dataValues.setConsum(int.parse(consum));
                   }
                 },
@@ -107,7 +103,7 @@ class DataForm extends StatelessWidget {
                             border: InputBorder.none,
                             hintStyle: TextStyle()),
                         onSaved: (pret) {
-                          if (pret != null) {
+                          if (pret != null && pret != '') {
                             dataValues.setPret(int.parse(pret));
                           }
                         },
