@@ -1,4 +1,5 @@
 import 'package:calculator_consum/providers/data_provider.dart';
+import 'package:calculator_consum/providers/fuel_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -133,19 +134,26 @@ class DataForm extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              height: 40,
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _saveForm,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.purple,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-                child: const Text(
-                  'CALCULEAZA',
-                  style: TextStyle(color: Colors.white),
+            Consumer<FuelProvider>(
+              builder: (context, fuelData, _) => Container(
+                height: 40,
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    _saveForm();
+                    await fuelData.getFirstSiteInfo();
+                    await fuelData.getSecondSiteInfo();
+                    print(fuelData.fuelData);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.purple,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  child: const Text(
+                    'CALCULEAZA',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             )
