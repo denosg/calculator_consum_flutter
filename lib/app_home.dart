@@ -1,8 +1,27 @@
+import 'package:calculator_consum/providers/fuel_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './widgets/data_form.dart';
 
-class AppHome extends StatelessWidget {
+class AppHome extends StatefulWidget {
+  @override
+  State<AppHome> createState() => _AppHomeState();
+}
+
+class _AppHomeState extends State<AppHome> {
+  var _isLoading = true;
+
+  @override
+  void didChangeDependencies() {
+    if (_isLoading) {
+      Provider.of<FuelProvider>(context).getFirstSiteInfo();
+      Provider.of<FuelProvider>(context).getSecondSiteInfo();
+    }
+    _isLoading = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

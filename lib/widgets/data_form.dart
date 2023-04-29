@@ -141,9 +141,6 @@ class DataForm extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () async {
                     _saveForm();
-                    await fuelData.getFirstSiteInfo();
-                    await fuelData.getSecondSiteInfo();
-                    print(fuelData.fuelData);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,
