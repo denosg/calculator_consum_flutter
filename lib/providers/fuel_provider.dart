@@ -61,8 +61,7 @@ class FuelProvider with ChangeNotifier {
           }
         }
         if (supplierName.isNotEmpty) {
-          String singleSupplierName = supplierName[supplierCounter].trimLeft();
-          singleSupplierName.trimRight();
+          String singleSupplierName = supplierName[supplierCounter].trim();
           if (!_benzinaFuelListChild.containsKey(singleSupplierName)) {
             String fuelInfo =
                 "${fuelName[fuelNameCounter]} ${fuelPrice[fuelPriceCounter]}";
@@ -131,8 +130,7 @@ class FuelProvider with ChangeNotifier {
         if (supplierName.isNotEmpty) {
           //ia benzina de dinainte (din getFirstSiteFuelInfo)
           benzinaPret.clear();
-          String singleSupplierName = supplierName[supplierCounter].trimLeft();
-          singleSupplierName.trimRight();
+          String singleSupplierName = supplierName[supplierCounter].trim();
           benzinaPret = _benzinaFuelListChild[singleSupplierName] ?? [];
           if (benzinaPret.length == 1) {
             //adauga motorina
@@ -141,7 +139,7 @@ class FuelProvider with ChangeNotifier {
             fuelInfoList.clear();
             fuelInfoList.add(benzinaPret[0]);
             fuelInfoList.add(motorina);
-            print("BENZINA + MOTORINA: ${fuelInfoList.toString()}");
+            // print("BENZINA + MOTORINA: ${fuelInfoList.toString()}");
             //adauga la supplierName benzina + motorina
             _fuelListChild[singleSupplierName] = fuelInfoList;
           }
