@@ -15,6 +15,7 @@ class _AppHomeState extends State<AppHome> {
   @override
   void didChangeDependencies() {
     if (_isLoading) {
+      // TODO: CHECK FOR INTERNET CONNECTION TO RUN THESE:
       Provider.of<FuelProvider>(context).getFirstSiteInfo();
       Provider.of<FuelProvider>(context).getSecondSiteInfo();
     }
