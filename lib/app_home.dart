@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './widgets/data_form.dart';
+import './widgets/custom_drawer.dart';
 
 class AppHome extends StatefulWidget {
   @override
@@ -11,6 +12,7 @@ class AppHome extends StatefulWidget {
 
 class _AppHomeState extends State<AppHome> {
   var _isLoading = true;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void didChangeDependencies() {
@@ -26,6 +28,8 @@ class _AppHomeState extends State<AppHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      endDrawer: CustomDrawer(),
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Column(children: [
@@ -50,7 +54,7 @@ class _AppHomeState extends State<AppHome> {
             height: 310,
             // color: Colors.red,
             padding: const EdgeInsets.all(20),
-            child: DataForm(),
+            child: DataForm(_scaffoldKey),
           ),
         ]),
       ),

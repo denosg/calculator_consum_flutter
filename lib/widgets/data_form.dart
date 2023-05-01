@@ -3,7 +3,16 @@ import 'package:calculator_consum/providers/fuel_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DataForm extends StatelessWidget {
+class DataForm extends StatefulWidget {
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  DataForm(this.scaffoldKey);
+
+  @override
+  State<DataForm> createState() => _DataFormState();
+}
+
+class _DataFormState extends State<DataForm> {
   final _formKey = GlobalKey<FormState>();
 
   void _saveForm() {
@@ -20,6 +29,10 @@ class DataForm extends StatelessWidget {
       content: Text('Te rog introdu o valoare'),
       duration: Duration(seconds: 2),
     ));
+  }
+
+  void _openDrawer() {
+    widget.scaffoldKey.currentState!.openEndDrawer();
   }
 
   @override
@@ -123,7 +136,7 @@ class DataForm extends StatelessWidget {
                     width: 50,
                     // color: Colors.green,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: _openDrawer,
                       icon: const Icon(
                         Icons.list,
                         color: Colors.grey,
