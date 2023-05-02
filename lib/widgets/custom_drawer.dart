@@ -1,5 +1,7 @@
+import 'package:calculator_consum/providers/fuel_provider.dart';
 import 'package:calculator_consum/widgets/fuel_item_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
@@ -25,7 +27,17 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           SingleChildScrollView(
-            child: FuelItemList(),
+            child: Consumer<FuelProvider>(builder: (context, fuelData, _) {
+              final fuelSupplierList = fuelData.fuelData.keys.toList();
+              return SizedBox(
+                height: 500,
+                child: ListView(
+                  children: fuelSupplierList.map((supplier) {
+                    return FuelItemList(supplier: supplier);
+                  }).toList(),
+                ),
+              );
+            }),
           )
         ],
       ),
