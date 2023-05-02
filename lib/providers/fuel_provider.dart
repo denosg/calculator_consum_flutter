@@ -25,8 +25,8 @@ class FuelProvider with ChangeNotifier {
     int fuelNameCounter = -1;
     int fuelPriceCounter = -1;
 
-    Uri url = await Uri.parse(
-        'https://www.plinul.ro/pret/benzina-standard/zalau-salaj');
+    Uri url =
+        Uri.parse('https://www.plinul.ro/pret/benzina-standard/zalau-salaj');
     try {
       final response = await http.get(url);
       var document = parser.parse(response.body);

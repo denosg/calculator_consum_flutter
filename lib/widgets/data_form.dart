@@ -154,6 +154,7 @@ class _DataFormState extends State<DataForm> {
                 child: ElevatedButton(
                   onPressed: () async {
                     _saveForm();
+                    print(fuelData.fuelData);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,

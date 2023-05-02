@@ -1,3 +1,4 @@
+import 'package:calculator_consum/widgets/fuel_item_list.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -19,9 +20,13 @@ class CustomDrawer extends StatelessWidget {
           const Text(
             'Calculator Consum',
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
             ),
           ),
+          SingleChildScrollView(
+            child: FuelItemList(),
+          )
         ],
       ),
     );
