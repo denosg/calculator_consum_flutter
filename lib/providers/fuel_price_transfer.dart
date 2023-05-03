@@ -7,7 +7,7 @@ class FuelPriceTransfer with ChangeNotifier {
     return _fuelPrice;
   }
 
-  void setFuelPrice(double price) {
+  void setFuelPrice(double? price) {
     _fuelPrice = price;
     notifyListeners();
   }

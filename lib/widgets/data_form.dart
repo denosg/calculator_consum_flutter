@@ -15,13 +15,17 @@ class DataForm extends StatefulWidget {
 
 class _DataFormState extends State<DataForm> {
   final _formKey = GlobalKey<FormState>();
+  var isGood = false;
 
   void _saveForm() {
     final isValid = _formKey.currentState?.validate();
     if (isValid == null || isValid == false) {
+      Provider.of<FuelPriceTransfer>(context, listen: false).setFuelPrice(null);
       return;
     }
     _formKey.currentState!.save();
+    isGood = true;
+    Provider.of<DataProvider>(context, listen: false).setGoodStatus(isGood);
   }
 
   void _showSnackbar(BuildContext context) {
@@ -111,7 +115,6 @@ class _DataFormState extends State<DataForm> {
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                           autocorrect: false,
-                          textInputAction: TextInputAction.next,
                           autofocus: true,
                           decoration: const InputDecoration(
                               hintText: 'Pret',
@@ -173,7 +176,7 @@ class _DataFormState extends State<DataForm> {
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

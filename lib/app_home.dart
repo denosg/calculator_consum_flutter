@@ -1,9 +1,11 @@
+import 'package:calculator_consum/providers/data_provider.dart';
 import 'package:calculator_consum/providers/fuel_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './widgets/data_form.dart';
 import './widgets/custom_drawer.dart';
+import './widgets/show_calculated.dart';
 
 class AppHome extends StatefulWidget {
   @override
@@ -31,32 +33,44 @@ class _AppHomeState extends State<AppHome> {
       key: _scaffoldKey,
       endDrawer: CustomDrawer(),
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Column(children: [
-          Container(
-            margin: const EdgeInsets.only(
-              left: 60,
-              right: 60,
-              top: 50,
-              bottom: 10,
+      body: Consumer<DataProvider>(
+        builder: (context, dataValues, _) => SingleChildScrollView(
+          child: Column(children: [
+            Container(
+              margin: const EdgeInsets.only(
+                left: 60,
+                right: 60,
+                top: 50,
+                bottom: 10,
+              ),
+              child: Image.asset('assets/images/fuel_gauge.png'),
             ),
-            child: Image.asset('assets/images/fuel_gauge.png'),
-          ),
-          const Text(
-            'Calculator Consum',
-            style: TextStyle(
-              fontSize: 25,
+            const Text(
+              'Calculator Consum',
+              style: TextStyle(
+                fontSize: 25,
+              ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            width: double.infinity,
-            height: 310,
-            // color: Colors.red,
-            padding: const EdgeInsets.all(20),
-            child: DataForm(_scaffoldKey),
-          ),
-        ]),
+            const SizedBox(height: 10),
+            Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 310,
+                  // color: Colors.red,
+                  padding: const EdgeInsets.all(20),
+                  child: DataForm(_scaffoldKey),
+                ),
+                if (dataValues.goodStatus)
+                  ShowCalculated(
+                    distanta: dataValues.distanta,
+                    consum: dataValues.consum,
+                    price: dataValues.pret,
+                  ),
+              ],
+            ),
+          ]),
+        ),
       ),
     );
   }
