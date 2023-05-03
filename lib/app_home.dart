@@ -1,11 +1,13 @@
 import 'package:calculator_consum/providers/data_provider.dart';
 import 'package:calculator_consum/providers/fuel_provider.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './widgets/data_form.dart';
 import './widgets/custom_drawer.dart';
 import './widgets/show_calculated.dart';
+import 'network/network_connectivity.dart';
 
 class AppHome extends StatefulWidget {
   @override
@@ -13,18 +15,47 @@ class AppHome extends StatefulWidget {
 }
 
 class _AppHomeState extends State<AppHome> {
+  Map _source = {ConnectivityResult.none: false};
+  final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
+  String string = '';
   var _isLoading = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  void didChangeDependencies() {
-    if (_isLoading) {
-      // TODO: CHECK FOR INTERNET CONNECTION TO RUN THESE:
-      Provider.of<FuelProvider>(context, listen: false).getFirstSiteInfo();
-      Provider.of<FuelProvider>(context, listen: false).getSecondSiteInfo();
-    }
-    _isLoading = false;
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+    _networkConnectivity.initialise(context);
+    _networkConnectivity.myStream.listen((source) {
+      _source = source;
+      print('source $_source');
+      // 1.
+      switch (_source.keys.toList()[0]) {
+        case ConnectivityResult.wifi:
+          string =
+              _source.values.toList()[0] ? 'WiFi: Online' : 'WiFi: Offline';
+          break;
+        case ConnectivityResult.none:
+        default:
+          string = 'Offline';
+      }
+      // 2.
+      setState(() {});
+      // 3.
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            string,
+            style: const TextStyle(fontSize: 15),
+          ),
+        ),
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _networkConnectivity.disposeStream();
+    super.dispose();
   }
 
   @override

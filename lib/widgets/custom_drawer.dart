@@ -3,7 +3,12 @@ import 'package:calculator_consum/widgets/fuel_item_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
+  @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -30,7 +35,7 @@ class CustomDrawer extends StatelessWidget {
             child: Consumer<FuelProvider>(builder: (context, fuelData, _) {
               final fuelSupplierList = fuelData.fuelData.keys.toList();
               return SizedBox(
-                height: 500,
+                height: 450,
                 child: ListView(
                   children: fuelSupplierList.map((supplier) {
                     return FuelItemList(supplier: supplier);

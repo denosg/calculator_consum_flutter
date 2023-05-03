@@ -101,79 +101,74 @@ class _DataFormState extends State<DataForm> {
                 },
               ),
             ),
-            Container(
-              // color: Colors.amber,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20)),
-                      child: Consumer<FuelPriceTransfer>(
-                        builder: (context, transfer, _) => TextFormField(
-                          textAlign: TextAlign.center,
-                          keyboardType: TextInputType.number,
-                          autocorrect: false,
-                          autofocus: true,
-                          decoration: const InputDecoration(
-                              hintText: 'Pret',
-                              border: InputBorder.none,
-                              hintStyle: TextStyle()),
-                          onSaved: (pret) {
-                            if (pret != null && pret != '') {
-                              dataValues.setPret(double.parse(pret));
-                            }
-                          },
-                          validator: (value) {
-                            if (value == null || value == '') {
-                              _showSnackbar(context);
-                              return;
-                            }
-                            return null;
-                          },
-                          controller: TextEditingController(
-                            text: transfer.fuelPrice == null
-                                ? ''
-                                : transfer.fuelPrice.toString(),
-                          ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Consumer<FuelPriceTransfer>(
+                      builder: (context, transfer, _) => TextFormField(
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        autocorrect: false,
+                        autofocus: true,
+                        decoration: const InputDecoration(
+                            hintText: 'Pret',
+                            border: InputBorder.none,
+                            hintStyle: TextStyle()),
+                        onSaved: (pret) {
+                          if (pret != null && pret != '') {
+                            dataValues.setPret(double.parse(pret));
+                          }
+                        },
+                        validator: (value) {
+                          if (value == null || value == '') {
+                            _showSnackbar(context);
+                            return;
+                          }
+                          return null;
+                        },
+                        controller: TextEditingController(
+                          text: transfer.fuelPrice == null
+                              ? ''
+                              : transfer.fuelPrice.toString(),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 50,
-                    width: 50,
-                    // color: Colors.green,
-                    child: IconButton(
-                      onPressed: _openDrawer,
-                      icon: const Icon(
-                        Icons.list,
-                        color: Colors.grey,
-                        size: 40,
-                      ),
+                ),
+                SizedBox(
+                  height: 50,
+                  width: 50,
+                  // color: Colors.green,
+                  child: IconButton(
+                    onPressed: _openDrawer,
+                    icon: const Icon(
+                      Icons.list,
+                      color: Colors.grey,
+                      size: 40,
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
-            Consumer<FuelProvider>(
-              builder: (context, fuelData, _) => Container(
-                height: 40,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    _saveForm();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                  child: const Text(
-                    'CALCULEAZA',
-                    style: TextStyle(color: Colors.white),
-                  ),
+            SizedBox(
+              height: 40,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () async {
+                  _saveForm();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.purple,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                ),
+                child: const Text(
+                  'CALCULEAZA',
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
