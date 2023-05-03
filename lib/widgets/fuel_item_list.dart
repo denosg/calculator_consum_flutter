@@ -15,6 +15,14 @@ class FuelItemList extends StatefulWidget {
 
 class _FuelItemListState extends State<FuelItemList> {
   var _expanded = false;
+
+  double fuelValue(String stringPrice) {
+    RegExp regex = RegExp(r"\d+\.\d+(?= lei)");
+    String? price = regex.stringMatch(stringPrice);
+    double fuelValue = double.parse(price!);
+    return fuelValue;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<FuelProvider>(builder: (context, fuelData, _) {
@@ -51,7 +59,11 @@ class _FuelItemListState extends State<FuelItemList> {
                     children: fuelData.fuelData[widget.supplier]!
                         .map(
                           (fuel) => TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Scaffold.of(context).closeEndDrawer();
+                              double fuelPrice = fuelValue(fuel);
+                              print(fuelPrice);
+                            },
                             child: Text(
                               fuel,
                               style: const TextStyle(
