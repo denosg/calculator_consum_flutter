@@ -1,4 +1,5 @@
 import 'package:calculator_consum/providers/data_provider.dart';
+import 'package:calculator_consum/providers/fuel_price_transfer.dart';
 import 'package:calculator_consum/providers/fuel_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,14 +52,13 @@ class _DataFormState extends State<DataForm> {
                 keyboardType: TextInputType.number,
                 autocorrect: false,
                 textInputAction: TextInputAction.next,
-                autofocus: true,
                 decoration: const InputDecoration(
                   hintText: 'Distanta',
                   border: InputBorder.none,
                 ),
                 onSaved: (distanta) {
                   if (distanta != null && distanta != '') {
-                    dataValues.setDistanta(int.parse(distanta));
+                    dataValues.setDistanta(double.parse(distanta));
                   }
                 },
                 validator: (value) {
@@ -85,7 +85,7 @@ class _DataFormState extends State<DataForm> {
                     hintStyle: TextStyle()),
                 onSaved: (consum) {
                   if (consum != null && consum != '') {
-                    dataValues.setConsum(int.parse(consum));
+                    dataValues.setConsum(double.parse(consum));
                   }
                 },
                 validator: (value) {
@@ -106,32 +106,39 @@ class _DataFormState extends State<DataForm> {
                       decoration: BoxDecoration(
                           color: Colors.grey,
                           borderRadius: BorderRadius.circular(20)),
-                      child: TextFormField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        autocorrect: false,
-                        textInputAction: TextInputAction.next,
-                        autofocus: true,
-                        decoration: const InputDecoration(
-                            hintText: 'Pret',
-                            border: InputBorder.none,
-                            hintStyle: TextStyle()),
-                        onSaved: (pret) {
-                          if (pret != null && pret != '') {
-                            dataValues.setPret(int.parse(pret));
-                          }
-                        },
-                        validator: (value) {
-                          if (value == null || value == '') {
-                            _showSnackbar(context);
-                            return;
-                          }
-                          return null;
-                        },
+                      child: Consumer<FuelPriceTransfer>(
+                        builder: (context, transfer, _) => TextFormField(
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          autocorrect: false,
+                          textInputAction: TextInputAction.next,
+                          autofocus: true,
+                          decoration: const InputDecoration(
+                              hintText: 'Pret',
+                              border: InputBorder.none,
+                              hintStyle: TextStyle()),
+                          onSaved: (pret) {
+                            if (pret != null && pret != '') {
+                              dataValues.setPret(double.parse(pret));
+                            }
+                          },
+                          validator: (value) {
+                            if (value == null || value == '') {
+                              _showSnackbar(context);
+                              return;
+                            }
+                            return null;
+                          },
+                          controller: TextEditingController(
+                            text: transfer.fuelPrice == null
+                                ? ''
+                                : transfer.fuelPrice.toString(),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     height: 50,
                     width: 50,
                     // color: Colors.green,
@@ -154,7 +161,6 @@ class _DataFormState extends State<DataForm> {
                 child: ElevatedButton(
                   onPressed: () async {
                     _saveForm();
-                    print(fuelData.fuelData);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple,

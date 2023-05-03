@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:calculator_consum/providers/fuel_price_transfer.dart';
 import 'package:calculator_consum/providers/fuel_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -58,17 +59,19 @@ class _FuelItemListState extends State<FuelItemList> {
                 child: ListView(
                     children: fuelData.fuelData[widget.supplier]!
                         .map(
-                          (fuel) => TextButton(
-                            onPressed: () {
-                              Scaffold.of(context).closeEndDrawer();
-                              double fuelPrice = fuelValue(fuel);
-                              print(fuelPrice);
-                            },
-                            child: Text(
-                              fuel,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
+                          (fuel) => Consumer<FuelPriceTransfer>(
+                            builder: (context, transfer, _) => TextButton(
+                              onPressed: () {
+                                Scaffold.of(context).closeEndDrawer();
+                                double fuelPrice = fuelValue(fuel);
+                                transfer.setFuelPrice(fuelPrice);
+                              },
+                              child: Text(
+                                fuel,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),

@@ -1,4 +1,5 @@
 import 'package:calculator_consum/providers/data_provider.dart';
+import 'package:calculator_consum/providers/fuel_price_transfer.dart';
 import 'package:calculator_consum/providers/fuel_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,9 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => FuelProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => FuelPriceTransfer(),
+        )
       ],
       child: MaterialApp(
         theme: ThemeData(
