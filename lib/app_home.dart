@@ -1,5 +1,4 @@
 import 'package:calculator_consum/providers/data_provider.dart';
-import 'package:calculator_consum/providers/fuel_provider.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,13 +17,12 @@ class _AppHomeState extends State<AppHome> {
   Map _source = {ConnectivityResult.none: false};
   final NetworkConnectivity _networkConnectivity = NetworkConnectivity.instance;
   String string = '';
-  var _isLoading = true;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _networkConnectivity.initialise(context);
+    _networkConnectivity.initialise();
     _networkConnectivity.myStream.listen((source) {
       _source = source;
       print('source $_source');

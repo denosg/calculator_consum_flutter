@@ -15,21 +15,19 @@ class NetworkConnectivity {
   final _controller = StreamController.broadcast();
   Stream get myStream => _controller.stream;
   // 1.
-  void initialise(BuildContext context) async {
+  void initialise() async {
     ConnectivityResult result = await _networkConnectivity.checkConnectivity();
-    _checkStatus(result, context);
+    _checkStatus(result);
     _networkConnectivity.onConnectivityChanged.listen((result) {
       print(result);
-      _checkStatus(result, context);
+      _checkStatus(result);
     });
   }
 
 // 2.
-  void _checkStatus(ConnectivityResult result, BuildContext context) async {
+  void _checkStatus(ConnectivityResult result) async {
     bool isOnline = false;
     try {
-      Provider.of<FuelProvider>(context, listen: false).getFirstSiteInfo();
-      Provider.of<FuelProvider>(context, listen: false).getSecondSiteInfo();
       final result = await InternetAddress.lookup('example.com');
       isOnline = result.isNotEmpty && result[0].rawAddress.isNotEmpty;
     } on SocketException catch (_) {
