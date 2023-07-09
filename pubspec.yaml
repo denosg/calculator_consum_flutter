@@ -45,8 +45,8 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
-  color: #000000
-  image: 
+  color: "#000000"
+  image: "assets/images/gas2.png"
 
 dev_dependencies:
   flutter_test:
