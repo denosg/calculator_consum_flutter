@@ -18,6 +18,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+
     return FutureBuilder(
       future: _refreshPrices(Provider.of<FuelProvider>(context, listen: false)),
       builder: (context, snapshot) =>
@@ -54,7 +56,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             final fuelSupplierList =
                                 fuelData.fuelData.keys.toList();
                             return SizedBox(
-                              height: 450,
+                              height: height * 0.7,
                               child: ListView(
                                 children: fuelSupplierList.map((supplier) {
                                   return FuelItemList(supplier: supplier);
