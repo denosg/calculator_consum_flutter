@@ -16,9 +16,10 @@ class _DataFormState extends State<DataForm> {
   final _formKey = GlobalKey<FormState>();
   var isGood = false;
 
-  void _saveForm() {
+  void _saveForm(BuildContext context) {
     final isValid = _formKey.currentState?.validate();
-    if (isValid == null || isValid == false) {
+    if (isValid == false) {
+      _showSnackbar(context);
       Provider.of<FuelPriceTransfer>(context, listen: false).setFuelPrice(null);
       return;
     }
@@ -49,7 +50,9 @@ class _DataFormState extends State<DataForm> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(20)),
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: TextFormField(
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
@@ -60,14 +63,13 @@ class _DataFormState extends State<DataForm> {
                   border: InputBorder.none,
                 ),
                 onSaved: (distanta) {
-                  if (distanta != null && distanta != '') {
+                  if (distanta != null && distanta.isNotEmpty) {
                     dataValues.setDistanta(double.parse(distanta));
                   }
                 },
                 validator: (value) {
-                  if (value == null || value == '') {
-                    _showSnackbar(context);
-                    return;
+                  if (value == null || value.isEmpty) {
+                    return '';
                   }
                   return null;
                 },
@@ -75,26 +77,27 @@ class _DataFormState extends State<DataForm> {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: Colors.grey, borderRadius: BorderRadius.circular(20)),
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: TextFormField(
                 textAlign: TextAlign.center,
                 keyboardType: TextInputType.number,
                 autocorrect: false,
                 textInputAction: TextInputAction.next,
-                autofocus: true,
                 decoration: const InputDecoration(
-                    hintText: 'Consum',
-                    border: InputBorder.none,
-                    hintStyle: TextStyle()),
+                  hintText: 'Consum',
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(),
+                ),
                 onSaved: (consum) {
-                  if (consum != null && consum != '') {
+                  if (consum != null && consum.isNotEmpty) {
                     dataValues.setConsum(double.parse(consum));
                   }
                 },
                 validator: (value) {
-                  if (value == null || value == '') {
-                    _showSnackbar(context);
-                    return;
+                  if (value == null || value.isEmpty) {
+                    return '';
                   }
                   return null;
                 },
@@ -105,27 +108,27 @@ class _DataFormState extends State<DataForm> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(20)),
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     child: Consumer<FuelPriceTransfer>(
                       builder: (context, transfer, _) => TextFormField(
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
                         autocorrect: false,
-                        autofocus: true,
                         decoration: const InputDecoration(
-                            hintText: 'Pret',
-                            border: InputBorder.none,
-                            hintStyle: TextStyle()),
+                          hintText: 'Pret',
+                          border: InputBorder.none,
+                          hintStyle: TextStyle(),
+                        ),
                         onSaved: (pret) {
-                          if (pret != null && pret != '') {
+                          if (pret != null && pret.isNotEmpty) {
                             dataValues.setPret(double.parse(pret));
                           }
                         },
                         validator: (value) {
-                          if (value == null || value == '') {
-                            _showSnackbar(context);
-                            return;
+                          if (value == null || value.isEmpty) {
+                            return '';
                           }
                           return null;
                         },
@@ -141,7 +144,6 @@ class _DataFormState extends State<DataForm> {
                 SizedBox(
                   height: 50,
                   width: 50,
-                  // color: Colors.green,
                   child: IconButton(
                     onPressed: _openDrawer,
                     icon: const Icon(
@@ -150,20 +152,19 @@ class _DataFormState extends State<DataForm> {
                       size: 40,
                     ),
                   ),
-                )
+                ),
               ],
             ),
             SizedBox(
               height: 40,
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () async {
-                  _saveForm();
-                },
+                onPressed: () => _saveForm(context),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
                 child: const Text(
                   'CALCULEAZA',

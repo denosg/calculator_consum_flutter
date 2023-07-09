@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 
-class ShowCalculated extends StatelessWidget {
+class ShowCalculated extends StatefulWidget {
   final double? distanta;
   final double? consum;
   final double? price;
 
-  double? litriiConsumati;
-  double? costTraseu;
-
-  ShowCalculated({super.key, 
+  ShowCalculated({
+    super.key,
     required this.distanta,
     required this.consum,
     required this.price,
   });
 
+  @override
+  State<ShowCalculated> createState() => _ShowCalculatedState();
+}
+
+class _ShowCalculatedState extends State<ShowCalculated> {
+  double? litriiConsumati;
+
+  double? costTraseu;
+
   void calculareConsum() {
-    litriiConsumati = (distanta! * consum!) / 100;
-    costTraseu = (litriiConsumati! * price!);
+    litriiConsumati = (widget.distanta! * widget.consum!) / 100;
+    costTraseu = (litriiConsumati! * widget.price!);
   }
 
   @override
