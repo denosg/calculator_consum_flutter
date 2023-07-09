@@ -13,6 +13,7 @@ class DataForm extends StatefulWidget {
 }
 
 class _DataFormState extends State<DataForm> {
+  var fuelPriceController = TextEditingController(text: '');
   final _formKey = GlobalKey<FormState>();
   var isGood = false;
 
@@ -25,6 +26,7 @@ class _DataFormState extends State<DataForm> {
     }
     _formKey.currentState!.save();
     isGood = true;
+    Provider.of<FuelPriceTransfer>(context, listen: false).setFuelPrice(null);
     Provider.of<DataProvider>(context, listen: false).setGoodStatus(isGood);
   }
 
@@ -48,94 +50,104 @@ class _DataFormState extends State<DataForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TextFormField(
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.number,
-                autocorrect: false,
-                textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
-                  hintText: 'Distanta',
-                  border: InputBorder.none,
+            LimitedBox(
+              maxHeight: 55,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                onSaved: (distanta) {
-                  if (distanta != null && distanta.isNotEmpty) {
-                    dataValues.setDistanta(double.parse(distanta));
-                  }
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return '';
-                  }
-                  return null;
-                },
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  autocorrect: false,
+                  textInputAction: TextInputAction.next,
+                  decoration: const InputDecoration(
+                    hintText: 'Distanta',
+                    border: InputBorder.none,
+                  ),
+                  onSaved: (distanta) {
+                    if (distanta != null && distanta.isNotEmpty) {
+                      dataValues.setDistanta(double.parse(distanta));
+                    }
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return '';
+                    }
+                    return null;
+                  },
+                ),
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: TextFormField(
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.number,
-                autocorrect: false,
-                textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
-                  hintText: 'Consum',
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(),
+            LimitedBox(
+              maxHeight: 55,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                onSaved: (consum) {
-                  if (consum != null && consum.isNotEmpty) {
-                    dataValues.setConsum(double.parse(consum));
-                  }
-                },
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return '';
-                  }
-                  return null;
-                },
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  autocorrect: false,
+                  textInputAction: TextInputAction.next,
+                  decoration: const InputDecoration(
+                    hintText: 'Consum',
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(),
+                  ),
+                  onSaved: (consum) {
+                    if (consum != null && consum.isNotEmpty) {
+                      dataValues.setConsum(double.parse(consum));
+                    }
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return '';
+                    }
+                    return null;
+                  },
+                ),
               ),
             ),
             Row(
               children: [
                 Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Consumer<FuelPriceTransfer>(
-                      builder: (context, transfer, _) => TextFormField(
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        autocorrect: false,
-                        decoration: const InputDecoration(
-                          hintText: 'Pret',
-                          border: InputBorder.none,
-                          hintStyle: TextStyle(),
-                        ),
-                        onSaved: (pret) {
-                          if (pret != null && pret.isNotEmpty) {
-                            dataValues.setPret(double.parse(pret));
-                          }
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        controller: TextEditingController(
-                          text: transfer.fuelPrice == null
-                              ? ''
-                              : transfer.fuelPrice.toString(),
+                  child: LimitedBox(
+                    maxHeight: 55,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Consumer<FuelPriceTransfer>(
+                        builder: (context, transfer, _) => TextFormField(
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          autocorrect: false,
+                          decoration: const InputDecoration(
+                            hintText: 'Pret',
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(),
+                          ),
+                          onSaved: (pret) {
+                            if (pret != null && pret.isNotEmpty) {
+                              dataValues.setPret(double.parse(pret));
+                              fuelPriceController.text = pret;
+                            }
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return '';
+                            }
+                            return null;
+                          },
+                          controller: TextEditingController(
+                            text: transfer.fuelPrice == null
+                                ? fuelPriceController.text
+                                : transfer.fuelPrice.toString(),
+                          ),
                         ),
                       ),
                     ),
