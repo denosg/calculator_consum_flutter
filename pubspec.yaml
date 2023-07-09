@@ -39,6 +39,14 @@ dependencies:
   html: ^0.15.2
   provider: ^6.0.5
   connectivity_plus: ^3.0.6
+  flutter_native_splash: ^2.3.1
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  color: #000000
+  image: 
 
 dev_dependencies:
   flutter_test:
