@@ -5,7 +5,7 @@ class ShowCalculated extends StatefulWidget {
   final double? consum;
   final double? price;
 
-  ShowCalculated({
+  const ShowCalculated({
     super.key,
     required this.distanta,
     required this.consum,
