@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
               seedColor: Colors.purple,
               secondary: Colors.white,
             )),
-        home: AppHome(),
+        home: const AppHome(),
       ),
     );
   }

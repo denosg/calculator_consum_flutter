@@ -8,7 +8,7 @@ class ShowCalculated extends StatelessWidget {
   double? litriiConsumati;
   double? costTraseu;
 
-  ShowCalculated({
+  ShowCalculated({super.key, 
     required this.distanta,
     required this.consum,
     required this.price,

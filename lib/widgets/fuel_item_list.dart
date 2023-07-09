@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class FuelItemList extends StatefulWidget {
   final String supplier;
 
-  const FuelItemList({required this.supplier});
+  const FuelItemList({super.key, required this.supplier});
 
   @override
   State<FuelItemList> createState() => _FuelItemListState();

@@ -6,11 +6,11 @@ import 'package:html/dom.dart' as html;
 import 'package:flutter/material.dart';
 
 class FuelProvider with ChangeNotifier {
-  List<String> _globalSupplierName = [];
-  List<String> _globalFuelName = [];
-  List<String> _globalFuelPrice = [];
-  Map<String, List<String>> _benzinaFuelListChild = {};
-  Map<String, List<String>> _fuelListChild = {};
+  final List<String> _globalSupplierName = [];
+  final List<String> _globalFuelName = [];
+  final List<String> _globalFuelPrice = [];
+  final Map<String, List<String>> _benzinaFuelListChild = {};
+  final Map<String, List<String>> _fuelListChild = {};
 
   Map<String, List<String>> get fuelData {
     return _fuelListChild;

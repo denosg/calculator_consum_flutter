@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class DataForm extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
 
-  DataForm(this.scaffoldKey);
+  const DataForm(this.scaffoldKey, {super.key});
 
   @override
   State<DataForm> createState() => _DataFormState();
